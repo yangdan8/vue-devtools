@@ -14,10 +14,9 @@ suite('vuex tab', () => {
     cy.get('[data-id="load-vuex-state"]').click()
     cy.get('.recording-vuex-state').should('not.be.visible')
     cy.get('.loading-vuex-state').should('not.be.visible')
-    cy.get('.vuex-state-inspector').then(el => {
-      expect(el.text()).to.include('type:"DECREMENT"')
-      expect(el.text()).to.include('count:1')
-    })
+    cy.get('.vuex-state-inspector')
+      .should('contain', 'type:"DECREMENT"')
+      .should('contain', 'count:1')
     cy.get('.history .entry').eq(5).should('have.class', 'inspected').should('have.class', 'active')
   })
 
@@ -58,6 +57,7 @@ suite('vuex tab', () => {
     cy.get('.vuex-state-inspector').then(el => {
       expect(el.text()).to.include('type:"INCREMENT"')
       expect(el.text()).to.include('count:2')
+      expect(el.text()).to.include('Error from getter')
     })
     cy.get('.data-field .key').contains('lastCountPayload').click()
     cy.get('.vuex-state-inspector').then(el => {
